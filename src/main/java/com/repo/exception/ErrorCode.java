@@ -27,6 +27,18 @@ public enum ErrorCode {
     ALREADY_DELETED(HttpStatus.FORBIDDEN, "이미 탈퇴한 사용자 입니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
     ALREADY_BLOCK(HttpStatus.FORBIDDEN, "이미 차단된 사용자 입니다."),
+
+    //Board
+    NO_BOARD_PERMISSION(HttpStatus.BAD_REQUEST, "보드를 관리할 권한이 없습니다."),
+    BOARD_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 존재하는 보드입니다."),
+    BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "보드가 존재하지 않습니다."),
+
+    //Post
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "게시물을 찾을 수 없습니다."),
+    NO_POST_PERMISSION(HttpStatus.NOT_FOUND, "게시물을 관리할 권한이 없습니다."),
+
+    //Comment
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "댓글을 찾을 수 없습니다."),
     ;
 
     private final HttpStatus status;

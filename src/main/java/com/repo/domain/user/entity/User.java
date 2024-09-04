@@ -1,5 +1,6 @@
 package com.repo.domain.user.entity;
 
+import com.repo.domain.user.dto.UserRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,8 @@ public class User {
 
     private String password;
 
+    private String refreshToken;
+
     @Enumerated(EnumType.STRING)
     private Authorities authorities;
 
@@ -27,7 +30,7 @@ public class User {
     private Status status;
 
     @Builder
-    public User(String username,String nickname ,String password, Authorities authorities , Status status) {
+    public User(String username, String nickname, String password, Authorities authorities, Status status) {
         this.username = username;
         this.nickname = nickname;
         this.password = password;
@@ -35,23 +38,8 @@ public class User {
         this.status = status;
     }
 
-    @Getter
-    @RequiredArgsConstructor
-    public enum Authorities{
-        USER,
-        ADMIN
-    }
-
-    @Getter
-    @RequiredArgsConstructor
-    public enum Status{
-        NORMAL,
-        DELETED,
-        BLOCKED
-    }
-
-    public boolean isBlocked(){
-        return this.status == Status.DELETED || this.status == Status.BLOCKED;
+    public boolean isBlocked() {
+        return this.status == Status.DELETED ;
     }
 
     @Transient
@@ -59,8 +47,31 @@ public class User {
         return this.status == Status.NORMAL;
     }
 
-    public boolean isAdmin(){
-        return authorities.equals(Authorities.ADMIN);
+    public void update(UserRequestDto userRequestDto) {
+        this.nickname = userRequestDto.getNickname();
+    }
+
+    public void signout() {
+        this.status = Status.DELETED;
+        logout();
+    }
+
+    public void logout() {
+        this.refreshToken = null;
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum Authorities {
+        USER,
+        ADMIN
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum Status {
+        NORMAL,
+        DELETED
     }
 
 }

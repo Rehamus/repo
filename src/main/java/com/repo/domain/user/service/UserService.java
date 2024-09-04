@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -64,6 +65,32 @@ public class UserService {
         return new TokenResponseDto(accessToken, refreshToken);
     }
 
+    @Transactional
+    public String signout(Long userId) {
+        User user = getUser(userId);
+
+        user.signout();
+
+        return null;
+    }
+
+    @Transactional
+    public String logout(Long userId) {
+        User user = getUser(userId);
+
+        user.logout();
+
+        return null;
+    }
+
+    @Transactional
+    public UserResponseDto update(Long userId, UserRequestDto userRequestDto) {
+        User user = getUser(userId);
+
+        user.update(userRequestDto);
+
+        return null;
+    }
 
     //::::::::::::::::::::::::// TOOL BOX  //:::::::::::::::::::::::://
 
