@@ -37,7 +37,8 @@ public class Board extends Timestamp {
     private List<Post> post = new ArrayList<>();
 
     @Builder
-    public Board(String title, User user) {
+    public Board(Long id,String title, User user) {
+        this.id = id;
         this.title = title;
         this.user = user;
     }

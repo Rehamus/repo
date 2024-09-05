@@ -11,10 +11,10 @@ import java.util.List;
 public class CommentMapResponseDto {
 
     private int totalPages;
-    private List<CommentResponseDto> responseDtoList;
+    private List<CommentResponseDto> responseDto;
 
     public CommentMapResponseDto(int totalPages, List<CommentResponseDto> responseDtoList) {
         this.totalPages = totalPages;
-        this.responseDtoList = responseDtoList;
+        this.responseDto = responseDtoList;
     }
 }
