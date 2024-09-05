@@ -1,0 +1,28 @@
+jwt:
+  access-expire-time: ${ACCESS_EXPIRE_TIME}
+  key: ${JWT_SECRET_KEY}
+  refresh-expire-time: ${REFRESH_EXPIRE_TIME}
+
+spring:
+  devtools:
+    remote:
+      restart:
+        enabled: true
+  application:
+    name: repo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${TEST_DB_HOST}:${TEST_MYSQL_PORT}/${TEST_MYSQL_DATABASE}
+    username: ${TEST_MYSQL_USER}
+    password: ${TEST_MYSQL_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+        format_sql: false
+        show_sql: false
+        use_sql_comments: false
+        dialect: org.hibernate.dialect.MySQLDialect

@@ -1,5 +1,6 @@
 package com.repo.domain.user.service;
 
+import com.repo.domain.user.dto.TokenRequestDto;
 import com.repo.domain.user.dto.TokenResponseDto;
 import com.repo.domain.user.dto.UserRequestDto;
 import com.repo.domain.user.dto.UserResponseDto;
@@ -101,6 +102,23 @@ public class UserService {
         user.update(userRequestDto);
 
         return null;
+    }
+
+    public UserResponseDto profile(Long userId) {
+        return new UserResponseDto(getUser(userId));
+    }
+
+    public TokenResponseDto refresh(TokenRequestDto tokenRequestDto) {
+
+        String oldRefreshToken  = tokenRequestDto.getRefreshToken().substring(7);
+        jwtService.isTokenValidate(oldRefreshToken);
+
+        User user = getUser(jwtService.getUserFromToken(oldRefreshToken).getUsername());
+
+        String accessToken = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        return new TokenResponseDto(accessToken, refreshToken);
     }
 
     //::::::::::::::::::::::::// TOOL BOX  //:::::::::::::::::::::::://
