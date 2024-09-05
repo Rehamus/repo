@@ -30,7 +30,8 @@ public class User {
     private Status status;
 
     @Builder
-    public User(String username, String nickname, String password, Authorities authorities, Status status) {
+    public User(Long id, String username, String nickname, String password, Authorities authorities, Status status) {
+        this.id = id;
         this.username = username;
         this.nickname = nickname;
         this.password = password;

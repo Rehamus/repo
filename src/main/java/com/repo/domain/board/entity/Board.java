@@ -33,17 +33,13 @@ public class Board extends Timestamp {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
-    private Long postCount;
-
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> post = new ArrayList<>();
 
     @Builder
-    public Board(String title, User user, Long postCount) {
+    public Board(String title, User user) {
         this.title = title;
         this.user = user;
-        this.postCount = postCount;
     }
 
     public void update(BoardRequestDto requestDto) {

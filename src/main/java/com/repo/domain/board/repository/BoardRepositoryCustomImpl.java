@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static com.repo.domain.board.entity.QBoard.board;
 
+
 @Repository
 @RequiredArgsConstructor
 public class BoardRepositoryCustomImpl implements BoardRepositoryCustom {

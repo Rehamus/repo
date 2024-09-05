@@ -14,8 +14,8 @@ public class CommentResponseDto {
 
     private Long id;
     private Long userId;
-    private String nickname;
     private Long postId;
+    private String nickname;
     private String contents;
     private LocalDateTime createdAt;
     private List<CommentResponseDto> children = new ArrayList<>();
@@ -30,7 +30,7 @@ public class CommentResponseDto {
     }
 
     @Builder
-    public CommentResponseDto(Long id, Long userId, Long postId, String nickname, String contents, List<CommentResponseDto> childrenDto,LocalDateTime createdAt) {
+    public CommentResponseDto(Long id, Long userId, Long postId, String nickname, String contents, List<CommentResponseDto> childrenDto, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.nickname = nickname;

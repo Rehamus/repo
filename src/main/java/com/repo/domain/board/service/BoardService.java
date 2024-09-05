@@ -28,13 +28,12 @@ public class BoardService {
 
         Board board = Board.builder()
                 .title(requestDto.getTitle())
-                .postCount(0L)
                 .user(user)
                 .build();
 
         boardRepository.save(board);
 
-        return new BoardResponseDto(board,false);
+        return new BoardResponseDto(board);
     }
 
     @Transactional
@@ -43,7 +42,7 @@ public class BoardService {
 
         board.update(requestDto);
 
-        return new BoardResponseDto(board,false);
+        return new BoardResponseDto(board);
     }
 
     public void delete(Long id, Long boardId) {
@@ -53,7 +52,7 @@ public class BoardService {
     }
 
     public BoardResponseDto read(Long boardId) {
-        return new BoardResponseDto(getBoard(boardId),false);
+        return new BoardResponseDto(getBoard(boardId));
     }
 
     public BoardResponseMapDto reads(int page, int pageSize, boolean asc) {
@@ -93,7 +92,7 @@ public class BoardService {
         return new BoardResponseMapDto(
                 boards.getTotalPages(),
                 boards.getContent().stream()
-                        .map(board -> new BoardResponseDto(board, false))
+                        .map(BoardResponseDto::new)
                         .toList()
         );
     }

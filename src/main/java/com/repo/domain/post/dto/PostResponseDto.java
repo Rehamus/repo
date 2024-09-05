@@ -2,11 +2,13 @@ package com.repo.domain.post.dto;
 
 
 import com.repo.domain.post.entity.Post;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
 public class PostResponseDto {
 
     private Long id;
