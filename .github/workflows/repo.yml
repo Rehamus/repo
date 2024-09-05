@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: repo CI
 
 on:
   push:
@@ -42,3 +42,15 @@ jobs:
         run: |
           docker tag my-spring-boot-app:latest ${{ secrets.DOCKER_HUB_USERNAME }}/my-spring-boot-app:latest
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-spring-boot-app:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my-spring-boot-app:latest
+            docker stop my-spring-boot-app || true
+            docker rm my-spring-boot-app || true
+            docker run -d -p 8080:8080 --name my-spring-boot-app ${{ secrets.DOCKER_HUB_USERNAME }}/my-spring-boot-app:latest
