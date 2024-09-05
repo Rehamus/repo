@@ -10,6 +10,7 @@ import com.repo.exception.ErrorCode;
 import com.repo.security.jwt.JwtService;
 import com.repo.security.principal.UserPrincipal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,18 +27,28 @@ public class UserService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
 
+    @Value("${ADMINPASSWORD}")
+    private String adminPassword;
+
     public UserResponseDto signup(UserRequestDto userRequestDto) {
 
         if (userRepository.existsByUsername(userRequestDto.getUsername())) {
             throw new BusinessException(ErrorCode.ALREADY_EXISTING_USER);
         }
 
+        boolean admin = false;
+
+        if(userRequestDto.getAdminPassword()!=null) {
+            admin = userRequestDto.getAdminPassword().equals(adminPassword);
+        }
+
+
         User user = User.builder()
                 .username(userRequestDto.getUsername())
                 .password(passwordEncoder.encode(userRequestDto.getPassword()))
                 .nickname(userRequestDto.getNickname())
                 .status(User.Status.NORMAL)
-                .authorities(User.Authorities.ADMIN)
+                .authorities(admin ? User.Authorities.ADMIN : User.Authorities.USER)
                 .build();
 
         userRepository.save(user);

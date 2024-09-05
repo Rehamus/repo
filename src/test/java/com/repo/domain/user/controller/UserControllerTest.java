@@ -63,7 +63,7 @@ class UserControllerTest {
         User user = new User(1L, "testUser", "태스터", "password", User.Authorities.USER, User.Status.NORMAL);
         userPrincipal = new UserPrincipal(user);
 
-        userRequestDto = new UserRequestDto("testUser", "password", "닉네임");
+        userRequestDto = new UserRequestDto("testUser", "password", "닉네임",null);
         userResponseDto = new UserResponseDto(user);
         tokenResponseDto = new TokenResponseDto("accessToken", "refreshToken");
     }
