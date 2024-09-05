@@ -1,5 +1,6 @@
 package com.repo.domain.user.controller;
 
+import com.repo.domain.user.dto.TokenRequestDto;
 import com.repo.domain.user.dto.TokenResponseDto;
 import com.repo.domain.user.dto.UserRequestDto;
 import com.repo.domain.user.dto.UserResponseDto;
@@ -54,4 +55,17 @@ public class UserController {
                 .body(userService.update(userPrincipal.getUser().getId(),userRequestDto));
     }
 
+    @Operation(summary = "유저 정보 조회")
+    @GetMapping("/profile")
+    public ResponseEntity<UserResponseDto> profile(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userService.profile(userPrincipal.getUser().getId()));
+    }
+
+    @Operation(summary = "토큰 재발급")
+    @GetMapping("/refresh")
+    public ResponseEntity<TokenResponseDto> refresh(@RequestBody TokenRequestDto tokenRequestDto) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userService.refresh(tokenRequestDto));
+    }
 }

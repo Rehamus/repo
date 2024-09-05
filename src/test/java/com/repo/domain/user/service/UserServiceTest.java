@@ -64,7 +64,7 @@ class UserServiceTest {
                 .authorities(User.Authorities.USER)
                 .build();
 
-        userRequestDto = new UserRequestDto("testUser", "password", "Tester");
+        userRequestDto = new UserRequestDto("testUser", "password", "Tester",null);
 
         userResponseDto = new UserResponseDto(user);
 
