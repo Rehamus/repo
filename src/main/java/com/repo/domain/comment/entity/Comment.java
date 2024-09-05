@@ -41,7 +41,8 @@ public class Comment extends Timestamp {
     private List<Comment> children = new ArrayList<>();
 
     @Builder
-    public Comment(String contents, User user, Post post, Comment parent){
+    public Comment(Long id,String contents, User user, Post post, Comment parent){
+        this.id = id;
         this.contents = contents;
         this.user = user;
         this.post = post;

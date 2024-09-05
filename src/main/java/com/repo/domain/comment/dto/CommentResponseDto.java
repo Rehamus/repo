@@ -21,6 +21,7 @@ public class CommentResponseDto {
     private List<CommentResponseDto> children = new ArrayList<>();
 
     public CommentResponseDto(Comment comment) {
+        this.id = comment.getId();
         this.nickname = comment.getUser().getNickname();
         this.postId = comment.getPost().getId();
         this.contents = comment.getContents();
