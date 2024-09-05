@@ -50,7 +50,8 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my-spring-boot-app:latest
             docker stop my-spring-boot-app || true
             docker rm my-spring-boot-app || true
-            docker run -d -p 8080:8080 --name my-spring-boot-app ${{ secrets.DOCKER_HUB_USERNAME }}/my-spring-boot-app:latest
+            docker run -d -p 8080:8080 --name my-spring-boot-app --env-file .env ${{ secrets.DOCKER_HUB_USERNAME }}/my-spring-boot-app:latest
