@@ -1,6 +1,5 @@
 package com.repo.domain.board.dto;
 
-import com.repo.domain.board.entity.Board;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

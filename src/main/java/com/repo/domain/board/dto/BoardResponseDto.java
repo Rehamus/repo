@@ -1,29 +1,30 @@
 package com.repo.domain.board.dto;
 
 import com.repo.domain.board.entity.Board;
-import com.repo.domain.post.dto.PostResponseDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardResponseDto {
 
     private Long id;
     private String title;
     private String nickname;
-    private Long postCount;
-    private List<PostResponseDto> posts;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
-    public BoardResponseDto(Board board, boolean post) {
+    public BoardResponseDto(Board board) {
         this.id = board.getId();
         this.title = board.getTitle();
         this.nickname = board.getUser().getNickname();
-        this.postCount = board.getPostCount();
-        if(post) {
-            this.posts = board.getPost().stream()
-                    .map(PostResponseDto::new)
-                    .toList();
-        }
+        this.createdAt = board.getCreatedAt();
+        this.modifiedAt = board.getModifiedAt();
     }
 }

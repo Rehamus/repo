@@ -48,7 +48,8 @@ public class Post extends Timestamp {
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Post(String title, String content, User user, Long viewCount) {
+    public Post(Long id, String title, String content, User user, Long viewCount) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.user = user;
